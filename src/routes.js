@@ -19,5 +19,15 @@ routes.post(
   authMiddleware,
   controllers.AccessibilityController.store
 )
+routes.put(
+  '/accessUpdate',
+  authMiddleware,
+  controllers.AccessibilityController.update
+)
+routes.delete(
+  '/accessDelete',
+  authMiddleware,
+  controllers.AccessibilityController.delete
+)
 
 module.exports = routes

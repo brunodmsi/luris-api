@@ -20,12 +20,12 @@ routes.post(
   controllers.AccessibilityController.store
 )
 routes.put(
-  '/accessUpdate',
+  '/access/:id',
   authMiddleware,
   controllers.AccessibilityController.update
 )
 routes.delete(
-  '/accessDelete',
+  '/access/:id',
   authMiddleware,
   controllers.AccessibilityController.delete
 )

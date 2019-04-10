@@ -25,29 +25,29 @@ class AccessibilityController {
   }
 
   async update (req, res) {
-    const { oldLat, oldLong, newLat, newLong } = req.body
+    const point = req.params.id
+    const { latitude, longitude } = req.body
 
     const location = await Accessibility.findOne({
-      latitude: oldLat,
-      longitude: oldLong
+      _id: point
     })
 
     if (location.userCreated.toString() !== req.userId) {
       return res.status(400).json({ error: 'User creation doesnt correspond' })
     }
 
-    location.latitude = newLat
-    location.longitude = newLong
+    location.latitude = latitude
+    location.longitude = longitude
 
     location.save()
     return res.json(location)
   }
 
   async delete (req, res) {
-    const { latitude, longitude } = req.body
+    const point = req.params.id
 
-    const location = await Accessibility.findOne({ latitude, longitude })
-    console.log(location)
+    const location = await Accessibility.findOne({ _id: point })
+
     if (location.userCreated.toString() !== req.userId) {
       return res.status(400).json({ error: 'User creation doesnt correspond' })
     }

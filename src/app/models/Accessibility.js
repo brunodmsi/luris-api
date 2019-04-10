@@ -9,6 +9,9 @@ const accessibilitySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  formatted_address: {
+    type: String
+  },
   userCreated: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

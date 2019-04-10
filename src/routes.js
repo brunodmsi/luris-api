@@ -16,7 +16,7 @@ routes.get(
 )
 routes.post(
   '/access',
-  authMiddleware,
+  // authMiddleware,
   controllers.AccessibilityController.store
 )
 routes.put(

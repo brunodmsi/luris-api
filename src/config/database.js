@@ -1,3 +1,3 @@
 module.exports = {
-  uri: 'mongodb://demon:demon123@ds113522.mlab.com:13522/luris'
+  uri: 'mongodb+srv://demon:demon123@demoncluster-ctv0i.mongodb.net/luris?retryWrites=true'
 }

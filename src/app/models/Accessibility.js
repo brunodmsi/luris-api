@@ -10,7 +10,24 @@ const accessibilitySchema = new mongoose.Schema({
     required: true
   },
   formatted_address: {
-    type: String
+    type: String,
+    required: true
+  },
+  city: {
+    type: String,
+    required: true
+  },
+  country: {
+    type: String,
+    required: true
+  },
+  neighborhood: {
+    type: String,
+    required: true
+  },
+  state: {
+    type: String,
+    required: true
   },
   userCreated: {
     type: mongoose.Schema.Types.ObjectId,

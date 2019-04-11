@@ -7,18 +7,19 @@ const googleapi = require('@google/maps').createClient({
 
 class AccessibilityController {
   async store (req, res) {
-    var data = {
-      address: null,
-      lat: null,
-      lng: null
-    }
-
     const { latitude, longitude } = req.body
     const userId = req.userId
-
-    if (await Accessibility.findOne({ latitude, longitude })) {
-      return res.status(400).json({ error: 'Location already exists' })
+    var data = {
+      address: null,
+      neighborhood: null,
+      city: null,
+      state: null,
+      country: null
     }
+
+    // if (await Accessibility.findOne({ latitude, longitude })) {
+    //   return res.status(400).json({ error: 'Location already exists' })
+    // }
 
     await googleapi
       .reverseGeocode({ latlng: `${latitude},${longitude}` })
@@ -26,17 +27,23 @@ class AccessibilityController {
       .then(res => {
         const tmp = res.json.results[0]
         data.address = tmp.formatted_address
-        data.lat = tmp.geometry.location.lat
-        data.lng = tmp.geometry.location.lng
+        data.neighborhood = tmp.address_components[2].long_name
+        data.city = tmp.address_components[3].long_name
+        data.state = tmp.address_components[4].long_name
+        data.country = tmp.address_components[5].long_name
       })
       .catch(err => {
         console.log(err)
       })
 
     const access = await Accessibility.create({
-      latitude: data.lat,
-      longitude: data.lng,
+      latitude: latitude,
+      longitude: longitude,
       formatted_address: data.address,
+      city: data.city,
+      state: data.state,
+      country: data.country,
+      neighborhood: data.neighborhood,
       userCreated: userId
     })
 

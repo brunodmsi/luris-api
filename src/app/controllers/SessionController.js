@@ -24,8 +24,8 @@ class SessionController {
 
     const decoded = jwt.verify(token, authConfig.secret)
 
-    if (decoded.exp < Date.now() / 1000) return 'expired'
-    else return 'ok'
+    if (decoded.exp < Date.now() / 1000) return res.json({ exp: 'expired'})
+    else return res.json({ exp: 'ok'})
   }
 }
 

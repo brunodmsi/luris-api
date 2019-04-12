@@ -20,12 +20,12 @@ class SessionController {
   }
 
   async checkToken (req, res) {
-    const { token } = req.body
+    const token = req.params.token
 
     const decoded = jwt.verify(token, authConfig.secret)
 
-    if (decoded.exp < Date.now() / 1000) return res.json({ exp: 'expired'})
-    else return res.json({ exp: 'ok'})
+    if (decoded.exp < Date.now() / 1000) return res.json({ exp: 1 })
+    else return res.json({ exp: 0 })
   }
 }
 

@@ -8,7 +8,7 @@ const controllers = require('./app/controllers')
 
 routes.post('/users', controllers.UserController.store)
 routes.post('/sessions', controllers.SessionController.store)
-routes.post('/checktoken', controllers.SessionController.checkToken)
+routes.get('/checktoken/:token', controllers.SessionController.checkToken)
 
 routes.get(
   '/access',

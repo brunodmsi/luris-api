@@ -7,7 +7,7 @@ const googleapi = require('@google/maps').createClient({
 
 class AccessibilityController {
   async store (req, res) {
-    const { latlng } = req.body
+    const { latitude, longitude } = req.body
     const userId = req.userId
     var data = {
       address: null,
@@ -17,12 +17,12 @@ class AccessibilityController {
       country: null
     }
 
-    if (await Accessibility.findOne({ latlng })) {
+    if (await Accessibility.findOne({ latitude, longitude })) {
       return res.status(400).json({ error: 'Location already exists' })
     }
 
     await googleapi
-      .reverseGeocode({ latlng: latlng })
+      .reverseGeocode({ latlng: `${latitude},${longitude}` })
       .asPromise()
       .then(res => {
         const tmp = res.json.results[0]
@@ -38,7 +38,8 @@ class AccessibilityController {
       })
 
     const access = await Accessibility.create({
-      latlng: latlng,
+      latitude: latitude,
+      longitude: longitude,
       formatted_address: data.address,
       city: data.city,
       state: data.state,

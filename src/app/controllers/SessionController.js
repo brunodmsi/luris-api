@@ -1,4 +1,6 @@
 const User = require('../models/User')
+const jwt = require('jsonwebtoken')
+const authConfig = require('../../config/auth')
 
 class SessionController {
   async store (req, res) {
@@ -15,6 +17,15 @@ class SessionController {
     }
 
     return res.json({ user, token: User.generateToken(user) })
+  }
+
+  async checkToken (req, res) {
+    const { token } = req.body
+
+    const decoded = jwt.verify(token, authConfig.secret)
+
+    if (decoded.exp < Date.now() / 1000) return 'expired'
+    else return 'ok'
   }
 }
 

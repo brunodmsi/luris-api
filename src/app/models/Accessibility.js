@@ -1,11 +1,7 @@
 const mongoose = require('mongoose')
 
 const accessibilitySchema = new mongoose.Schema({
-  latitude: {
-    type: String,
-    required: true
-  },
-  longitude: {
+  latlng: {
     type: String,
     required: true
   },

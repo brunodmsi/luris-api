@@ -9,6 +9,10 @@ const accessibilitySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  type: {
+    type: String,
+    required: true
+  },
   formatted_address: {
     type: String,
     required: true

@@ -7,7 +7,7 @@ const googleapi = require('@google/maps').createClient({
 
 class AccessibilityController {
   async store (req, res) {
-    const { latitude, longitude } = req.body
+    const { latitude, longitude, type } = req.body
     const userId = req.userId
     var data = {
       address: null,
@@ -42,6 +42,7 @@ class AccessibilityController {
       latitude: latitude,
       longitude: longitude,
       formatted_address: data.address,
+      type: type,
       city: data.city,
       state: data.state,
       country: data.country,

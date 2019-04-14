@@ -18,7 +18,7 @@ class AccessibilityController {
     }
 
     if (await Accessibility.findOne({ latitude, longitude })) {
-      return res.status(400).json({ error: 'Location already exists' })
+      return res.status(400).json({ error: 'Ponto ja existente' })
     }
 
     await googleapi
@@ -68,7 +68,7 @@ class AccessibilityController {
     })
 
     if (location.userCreated.toString() !== req.userId) {
-      return res.status(400).json({ error: 'User creation doesnt correspond' })
+      return res.status(400).json({ error: 'Voce nao criou este ponto' })
     }
 
     location.latitude = latitude
@@ -84,7 +84,7 @@ class AccessibilityController {
     const location = await Accessibility.findOne({ _id: point })
 
     if (location.userCreated.toString() !== req.userId) {
-      return res.status(400).json({ error: 'User creation doesnt correspond' })
+      return res.status(400).json({ error: 'Voce nao criou este ponto' })
     }
 
     location.delete()

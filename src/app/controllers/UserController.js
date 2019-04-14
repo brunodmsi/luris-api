@@ -10,7 +10,7 @@ class UserController {
     const { email } = req.body
 
     if (await User.findOne({ email })) {
-      return res.status(400).json({ error: 'User already exists' })
+      return res.status(400).json({ error: 'Usuario ja existe' })
     }
 
     const isValid = validateEmail(email)

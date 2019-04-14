@@ -26,8 +26,9 @@ class AccessibilityController {
       .asPromise()
       .then(res => {
         const tmp = res.json.results[0]
-        console.log(tmp)
-        data.address = tmp.formatted_address
+        var [address, rest] = tmp.formatted_address.split('-')
+        console.log(rest)
+        data.address = address
         data.neighborhood = tmp.address_components[2].long_name
         data.city = tmp.address_components[3].long_name
         data.state = tmp.address_components[4].long_name

@@ -13,7 +13,7 @@ routes.get('/checktoken/:token', controllers.SessionController.checkToken)
 routes.get(
   '/access',
   authMiddleware,
-  controllers.AccessibilityController.locations
+  controllers.AccessibilityController.index
 )
 routes.post(
   '/access',

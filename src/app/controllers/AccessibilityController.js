@@ -6,6 +6,24 @@ const googleapi = require('@google/maps').createClient({
 })
 
 class AccessibilityController {
+  async index (req, res) {
+    const filters = {}
+
+    if (req.query.type || req.query.street) {
+      if (req.query.type) {
+        filters.type = req.query.type
+      }
+
+      if (req.query.street) {
+        filters.formatted_address = new RegExp(req.query.street, 'i')
+      }
+    }
+
+    const locations = await Accessibility.find(filters)
+
+    return res.json(locations)
+  }
+
   async store (req, res) {
     const { latitude, longitude, type } = req.body
     const userId = req.userId
@@ -15,10 +33,6 @@ class AccessibilityController {
       city: null,
       state: null,
       country: null
-    }
-
-    if (await Accessibility.findOne({ latitude, longitude })) {
-      return res.status(400).json({ error: 'Ponto ja existente' })
     }
 
     await googleapi
@@ -51,12 +65,6 @@ class AccessibilityController {
     })
 
     return res.json(access)
-  }
-
-  async locations (req, res) {
-    const locations = await Accessibility.find({})
-
-    return res.json(locations)
   }
 
   async update (req, res) {

@@ -29,6 +29,7 @@ class AccessibilityController {
     const userId = req.userId
     var data = {
       address: null,
+      formatted_address: null,
       neighborhood: null,
       city: null,
       state: null,

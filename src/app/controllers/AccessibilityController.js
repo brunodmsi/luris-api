@@ -43,6 +43,7 @@ class AccessibilityController {
         var [address, rest] = tmp.formatted_address.split('-')
         console.log(rest)
         data.address = address
+        data.formatted_address = tmp.formatted_address
         data.neighborhood = tmp.address_components[2].long_name
         data.city = tmp.address_components[3].long_name
         data.state = tmp.address_components[4].long_name
@@ -55,7 +56,8 @@ class AccessibilityController {
     const access = await Accessibility.create({
       latitude: latitude,
       longitude: longitude,
-      formatted_address: data.address,
+      formatted_address: data.formatted_address,
+      address: data.address,
       type: type,
       city: data.city,
       state: data.state,
